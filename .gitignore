@@ -1,0 +1,8 @@
+target/
+bin/
+dependency-reduced-pom.xml
+.project
+.settings
+.classpath
+pom.xml.versionsBackup
+/bin/
