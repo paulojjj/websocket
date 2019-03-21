@@ -1,7 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:o="http://omnifaces.org/ui">
 <h:head>
 	<meta charset="utf-8" />
 	<h:outputStylesheet library="css" name="default.css" />
@@ -19,7 +20,7 @@
 		<h:commandScript name="messageReceived" action="#{websocketBean.messageReceived}" execute="@form" render=":messages" />
 	</h:form>
 	
-	<f:websocket channel="test" onmessage="onmessage" />
+	<o:socket channel="test" onmessage="onmessage"  />
 	
 	<h:form>
 		<h:outputLabel value="Message:" for="message" />

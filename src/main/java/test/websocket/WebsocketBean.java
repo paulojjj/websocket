@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.push.Push;
-import javax.faces.push.PushContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -20,8 +18,8 @@ public class WebsocketBean implements Serializable {
 	private String message;
 	private String receivedMessage;
 
-	@Inject @Push(channel="test")
-	private PushContext pushContext;
+	@Inject @org.omnifaces.cdi.Push(channel="test")
+	private org.omnifaces.cdi.PushContext pushContext;
 
 	public List<String> getMessages() {
 		return messages;
