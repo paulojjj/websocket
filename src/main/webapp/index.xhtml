@@ -1,15 +1,47 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	>
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:head>
 	<meta charset="utf-8" />
 	<h:outputStylesheet library="css" name="default.css" />
 </h:head>
 <h:body>
-	<f:websocket channel="test" />
+	<script type="text/javascript">
+		function onmessage(message) {
+			var input = document.getElementById('receivedForm:receivedMessage');
+			input.value = message; 
+			messageReceived('{p1: "v1"}')
+		}
+	</script>
+	<h:form id="receivedForm">
+		<h:inputHidden id="receivedMessage" value="#{websocketBean.receivedMessage}" />
+		<h:commandScript name="messageReceived" action="#{websocketBean.messageReceived}" execute="@form" render=":messages" />
+	</h:form>
+	
+	<f:websocket channel="test" onmessage="onmessage" />
+	
+	<h:form>
+		<h:outputLabel value="Message:" for="message" />
+		<h:inputText id="message" value="#{websocketBean.message}"
+			style="margin-left: 1em" />
+		<h:commandButton value="Send" style="margin-left: 1em"
+			actionListener="#{websocketBean.push}">
+			<f:ajax execute="message @this" render="@form :messages" />
+		</h:commandButton>
+	</h:form>
+	
 
-	Hello Websocket
+	<h:panelGroup id="messages">
+		<h:panelGroup id="innerMessages" rendered="#{not empty websocketBean.messages}">
+			<fieldset>
+				<legend>Messages</legend>
+				<ui:repeat var="item" value="#{websocketBean.messages}">
+					<h:outputLabel value="#{item}" />
+					<div />
+				</ui:repeat>
+			</fieldset>
+		</h:panelGroup>
+	</h:panelGroup>
 </h:body>
 </html>
