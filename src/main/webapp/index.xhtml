@@ -27,7 +27,7 @@
 			style="margin-left: 1em" />
 		<h:commandButton value="Send" style="margin-left: 1em"
 			actionListener="#{websocketBean.push}">
-			<f:ajax execute="message @this" render="@form :messages" />
+			<f:ajax execute="message @this" render="message" />
 		</h:commandButton>
 	</h:form>
 	
